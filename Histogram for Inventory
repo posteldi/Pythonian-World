@@ -1,3 +1,6 @@
+# display inventory using Python dictionary
+# inventory add fuction using Python histogram idiom
+
 stuff = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
 
 inv = {'gold coin': 42, 'rope': 1}
