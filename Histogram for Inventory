@@ -1,0 +1,23 @@
+stuff = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
+
+inv = {'gold coin': 42, 'rope': 1}
+
+loot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+
+def displayInv(inv):
+    print("Inventory:")
+    item_total = 0
+    for k, v in inv.items():
+        print(str(v) + ' ' + k)
+        item_total += v
+    print("Total number of items in inventory: " + str(item_total))
+
+
+def addInv(inv, loot):
+    for item in loot:
+        inv[item] = inv.get(item,0) + 1
+    return inv
+
+displayInv(stuff)
+inv2 = addInv(inv, loot)
+displayInv(inv2)
