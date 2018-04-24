@@ -1,4 +1,5 @@
 # If you want to use gmail. change 'Idididid' and "Password" into your real ones.
+# download and install chromedriver.exe in your computer first. 
 # Thanks to Gmails security policy, from time to time, it may be blocked, so don't be irritated. 
 
 from selenium import webdriver
