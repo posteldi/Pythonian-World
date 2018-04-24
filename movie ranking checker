@@ -1,0 +1,14 @@
+# Real Time Naver Movie Ranking 
+
+import requests
+
+from bs4 import BeautifulSoup
+
+html = requests.get('https://movie.naver.com/movie/sdb/rank/rmovie.nhn').text
+soup = BeautifulSoup(html, 'html.parser')
+movie_list = soup.find_all("div", "tit3")
+
+
+
+for idx, title in enumerate(movie_list,1):
+    print("{}{} {}".format(idx, '위', title.getText().strip()))
