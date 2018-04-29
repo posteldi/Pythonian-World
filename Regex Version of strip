@@ -1,0 +1,15 @@
+import re
+
+def regex_strip(word, karg=None):
+    if karg != None:
+        karg_reg = re.compile(karg)
+        word = karg_reg.sub('', word)
+
+    strip_reg = re.compile(r"[\S]+")
+    mo = strip_reg.search(word)
+    striped_word = mo.group()
+    return striped_word
+    # you can use re.compile(r'^\s*') and re.compile(r'\s*$') to do this
+
+text = "        abcdeabcfgabc   "
+print(regex_strip(text,"abc"))
