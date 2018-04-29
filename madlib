@@ -1,0 +1,45 @@
+"""
+reads in text files and lets the user add their own text anywhere the word ADJECTIVE, NOUN, ADVERB, or VERB
+It's ususally called (M)adlib.
+"""
+
+import re
+
+madlib_File = open('mad_lib_test.txt')
+madlib_Contents = madlib_File.read()
+madlib_Words = list(madlib_Contents.split())
+
+adj_Reg = re.compile(r'ADJECTIVE*')
+noun_Reg = re.compile(r'NOUN*')
+adv_Reg = re.compile(r'ADVERB*')
+verb_Reg  = re.compile(r'VERB*')
+
+for i in range(len(madlib_Words)):
+    if adj_Reg.match(madlib_Words[i]):
+        print('Enter an adjective', end=': ')
+        sub = input()
+        sub = adj_Reg.sub(sub, madlib_Words[i])
+    elif noun_Reg.match(madlib_Words[i]):
+        print('Enter an noun', end=': ')
+        sub = input()
+        sub = noun_Reg.sub(sub, madlib_Words[i])
+    elif adv_Reg.match(madlib_Words[i]):
+        print('Enter an adverb', end=': ')
+        sub = input()
+        sub = adv_Reg.sub(sub, madlib_Words[i])
+    elif verb_Reg.match(madlib_Words[i]):
+        print('Enter an verb', end=': ')
+        sub = input()
+        sub = verb_Reg.sub(sub, madlib_Words[i])
+    else:
+        continue
+
+    madlib_Words[i] = sub
+
+joint = ' '
+result = joint.join(madlib_Words)
+print(result)
+fout = open('madlib_new.txt','w')
+fout.write(result)
+madlib_File.close()
+fout.close()
