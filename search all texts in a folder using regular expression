@@ -1,0 +1,20 @@
+"""
+opens all .txt files in a folder and searches for any line that matches a user-supplied regular expression
+"""
+
+import re, os
+
+def regex_text_search(folder, userReg):
+    fileList = os.listdir(folder)
+    # print(fileList)
+    contentReg = re.compile(userReg)
+    textReg = re.compile(r'\w+\.txt')  # \w : any letter, numeric digit, or the underscore character
+
+    for i in range(len(fileList)):
+        # print(fileList[i])
+        if textReg.search(fileList[i]):
+            fin = open(os.path.join(folder,fileList[i]),'r')
+            f_content = fin.readlines()
+            for line in f_content:
+                if contentReg.search(line):
+                    print(line)
