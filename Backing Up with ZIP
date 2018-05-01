@@ -1,0 +1,27 @@
+"""
+Backing Up a Folder into a ZIP File
+"""
+
+import zipfile, os
+
+def backup_zip(folder):
+    folder = os.path.abspath(folder)
+
+    number = 1
+    while True:
+        zip_file_name = os.path.basename(folder) + '_' + str(number) + '.zip'
+        if not os.path.exists(zip_file_name):
+            break
+        number += 1
+    print('Creating %s...' %(zip_file_name))
+    backup_file = zipfile.ZipFile(zip_file_name,'w')
+    for path, dir, files in os.walk(folder):
+        print('Adding files in %s...' %(path))
+        backup_file.write(path)
+        for file in files:
+            new_base = os.path.basename(folder) + '_'
+            if file.startswith(new_base) and file.endswith('.zip'):
+                continue
+            backup_file.write(os.path.join(path,file))
+    backup_file.close()
+    print('Done')
