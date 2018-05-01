@@ -1,0 +1,28 @@
+"""
+Choose your folder in hard disk.
+Replace American-style dates name with European-style dates name.
+"""
+
+import shutil, os, re
+
+def rename_date(folder):
+    date_pattern = re.compile(r"""^(.*?) # all text before the date / question mark part means nongreedy
+    ((0|1)?\d)- # question mark part of the regular expression means "optional" group.
+    ((0|1|2|3)?\d)- # four digits for the day
+    ((19|20)\d\d)  # four digits for the year
+    (.*?)$""", re.VERBOSE)
+
+    for amer_file in os.listdir(folder):
+
+        mo = date_pattern.search(amer_file)
+        if mo == None:
+            continue
+        before_part = mo.group(1)
+        month_part = mo.group(2)
+        day_part = mo.group(4)
+        year_part = mo.group(6)
+        after_part = mo.group(8)
+        euro_file = before_part + day_part + '-' + month_part + '-' + year_part + after_part
+
+        print('Renaming "%s" to "%s"...'%(amer_file,euro_file))
+        shutil.move(os.path.join(folder, amer_file), os.path.join(folder, euro_file))
