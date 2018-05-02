@@ -1,0 +1,16 @@
+"""
+walks through a folder tree and searches for files with a certain file extension (such as .pdf or .jpg)
+Copy these files from whatever location they are in to a new folder
+"""
+
+import os, shutil
+
+def select_copy(folder_old, folder_new, ext='.pdf'):
+    folder_old = os.path.abspath(folder_old)
+    os.makedirs(folder_new,exist_ok=True)
+    for foldername, subfolder, filenames in os.walk(folder_old):
+        for filename in filenames:
+            if not filename.endswith(ext):
+                continue
+            print('Copy [{0}] to {1}'.format(os.path.join(foldername, filename),folder_new))
+            shutil.copy(os.path.join(foldername,filename),folder_new)
