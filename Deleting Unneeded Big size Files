@@ -1,0 +1,13 @@
+"""
+walks through a folder tree, searches for exceptionally large files, and deletes them.
+"""
+
+import os
+
+def delete_unneeded(folder,size=100000000):
+    folder = os.path.abspath(folder)
+    for foldername, subfolder, filenames in os.walk(folder):
+        for filename in filenames:
+            if os.path.getsize(os.path.join(foldername,filename)) > size:
+                print('deleting ' + os.path.join(foldername,filename) + ' size of more than %d'%(size))
+                os.unlink(os.path.join(foldername,filename))
