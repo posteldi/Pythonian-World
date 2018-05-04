@@ -1,0 +1,38 @@
+"""
+finds all files with a given prefix, such as spam001.txt, spam002.txt, and so on, in a single folder 
+locates any gaps in the numbering (such as if there is a spam001.txt and spam003.txt but no spam002.txt)
+
+I used the inverse function of zip(*list_join)
+difficult problem yet to solve -> python thinks counterintuitively, " 00005 < 002 < 003 < 01 "
+"""
+
+import os, re, shutil
+
+def fill_gaps(prefix, ext, folder):
+    folder = os.path.abspath(folder)
+
+    reg_name = re.compile(r'(%s(\d+)\.%s)' %(prefix,ext))
+
+    flist = os.listdir(folder)
+    flist.sort()
+
+    list_join = reg_name.findall('\n'.join(flist))
+
+    list_name, list_num = zip(*list_join)
+
+    num_length = max(3, max(len(i) for i in list_num))
+
+    for i in range(len(list_name)):
+        name_old = list_name[i]
+        name_new = prefix + str(i+1).zfill(num_length) + '.' + ext
+        print('Change file A %s into file B %s ....'
+              %(os.path.join(folder,name_old),os.path.join(folder,name_new)))
+        # shutil.move(os.path.join(folder,name_old),os.path.join(folder,name_new))
+
+    print('Done.')
+
+prefix = 'spam'
+ext ='txt'
+folder = 'text4'
+
+fill_gaps(prefix,ext,folder)
