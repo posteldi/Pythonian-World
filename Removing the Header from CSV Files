@@ -1,0 +1,28 @@
+"""
+removing the first line from several hundred CSV files.
+"""
+
+import csv, os
+
+def head_cut(folder):
+    os.makedirs('header_CUT', exist_ok=True)
+    folder = os.path.abspath(folder)
+    for csv_file in os.listdir(folder):
+        if not csv_file.endswith('.csv'):
+            continue
+        print('Removing header from ' + csv_file + '....')
+
+        csv_rows = []
+        file_in = open(os.path.join(folder,csv_file))
+        reader_obj = csv.reader(file_in)
+        for row in reader_obj:
+            if reader_obj.line_num == 1:
+                continue
+            csv_rows.append(row)
+        file_in.close()
+
+        csv_new = open(os.path.join('header_CUT', csv_file + '_cut'), 'w')
+        csv_writer = csv.writer(csv_new)
+        for row in csv_rows:
+            csv_writer.writerow(row)
+        csv_new.close()
